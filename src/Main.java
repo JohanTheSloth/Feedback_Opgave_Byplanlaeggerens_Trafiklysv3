@@ -45,6 +45,9 @@ public class Main {
                     + "[" + BLACK + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]";
         }
+        if (colorOflight.equals("")){
+            colorOflight="Ukendt";
+        }
 
         //Område check
         String allowedArea ="";
@@ -58,7 +61,7 @@ public class Main {
             allowedArea = "Forbudt, men fuck reglerne når der er en nødsituation";
         }
         if (allowedArea.equals("")){
-            allowedArea = "ubetydeligt";
+            allowedArea = "Ukendt";
         }
 
         System.out.println("-----Rapport-----");
