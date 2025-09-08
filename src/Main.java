@@ -45,6 +45,7 @@ public class Main {
                     + "[" + BLACK + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]";
         }
+        //Denne er her da der er huller i logikken, fra opgave side
         if (colorOflight.equals("")){
             colorOflight="Ukendt";
         }
