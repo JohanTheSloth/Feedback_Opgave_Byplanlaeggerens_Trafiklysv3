@@ -8,66 +8,67 @@ public class Main {
     public static final String BLACK = "\u001B[30m";
     public static void main(String[] args) {
 
-        System.out.println("Indskriv alt med stort forbogstav");
-
         Scanner scanner = new Scanner(System.in);
-        String dayTime = "";
-        String trafficAmount ="";
-        String areaType ="";
 
         System.out.print("Indskriv tidspunkt på dagen. mellem 06:00-16:59 skrives Dag, mellem 17:00-18:59 skrives Aften og mellem 19:00-5:59 Skrives Nat: ");
-        dayTime = scanner.nextLine();
+        String dayTime = scanner.nextLine();
+        dayTime = dayTime.toLowerCase().trim();
 
         System.out.print("indskriv trafik mængde. Lav eller Høj: ");
-        trafficAmount = scanner.nextLine();
+        String trafficAmount = scanner.nextLine();
+        trafficAmount = trafficAmount.toLowerCase().trim();
 
         System.out.print("Indskriv område type. Bolig, Ervhev eller Blandet: ");
-        areaType = scanner.nextLine();
+        String areaType = scanner.nextLine();
+        areaType = areaType.toLowerCase().trim();
 
-        System.out.print("Indksriv om det er en nødsiuation. True eller False: ");
-        boolean emergancy  = scanner.nextBoolean();
+        System.out.print("Indksriv om det er en nødsiuation. Ja eller Nej: ");
+        String emergancy  = scanner.nextLine();
+        emergancy = emergancy.toLowerCase().trim();
+
 
         //Lys check
         String colorOflight ="";
 
-        if (dayTime.equals("Dag") && trafficAmount.equals("Lav") || emergancy == true) {
+        if (dayTime.equals("dag") && trafficAmount.equals("lav") || emergancy.equals("ja")) {
             colorOflight = "[" + GREEN   + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]";
         }
-        if (dayTime.equals("Aften") && emergancy == false || trafficAmount.equals("Lav") && dayTime.equals("Nat") &&  emergancy == false) {
+        if (dayTime.equals("aften") && emergancy.equals("nej") || trafficAmount.equals("lav") && dayTime.equals("nat") &&  emergancy.equals("nej")) {
             colorOflight ="[" + YELLOW   + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]";
         }
-        if (dayTime.equals("Nat") && trafficAmount.equals("Høj") && emergancy == false || areaType.equals("Bolig") && trafficAmount.equals("Høj") && emergancy == false) {
+        if (dayTime.equals("nat") && trafficAmount.equals("høj") && emergancy.equals("nej") || areaType.equals("bolig") && trafficAmount.equals("høj") && emergancy.equals("nej")) {
             colorOflight = "[" + RED   + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]"
                     + "[" + BLACK + "■" + RESET + "]";
         }
-        //Denne er her da der er huller i logikken, fra opgave side
-        if (colorOflight.equals("")){
+        //Denne er her da der er huller i logikken, fra opgavens side
+        if (colorOflight.isEmpty()){
             colorOflight="Ukendt";
         }
 
         //Område check
         String allowedArea ="";
 
-        if (areaType.equals("Ervhev") || areaType.equals("Blandet") && trafficAmount.equals("Lav") ) {
+        if ((areaType.equals("ervhev") || areaType.equals("blandet")) && trafficAmount.equals("lav") ) {
             allowedArea = "Tilladt";
         }
-        if (areaType.equals("Bolig") && dayTime.equals("Nat") && emergancy == false) {
+        if (areaType.equals("bolig") && dayTime.equals("nat") && emergancy.equals("nej")) {
             allowedArea = "Forbudt";
-        } else if (areaType.equals("Bolig") && dayTime.equals("Nat") && emergancy == true) {
+        } else if (areaType.equals("bolig") && dayTime.equals("nat") && emergancy.equals("ja")) {
             allowedArea = "Forbudt, men fuck reglerne når der er en nødsituation";
         }
-        if (allowedArea.equals("")){
+        //Denne er her da der er huller i logikken, fra opgavens side
+        if (allowedArea.isEmpty()){
             allowedArea = "Ukendt";
         }
 
         System.out.println("-----Rapport-----");
         System.out.println("Traffiklyssets status er " + colorOflight);
-        System.out.println("Adgang status er " + allowedArea);
+        System.out.println("Adgangs status er " + allowedArea);
 
     }
 }
